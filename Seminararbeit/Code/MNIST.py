@@ -3,18 +3,25 @@ import time
 import numpy as np
 import NeuronalesNetz
 
+"""
+
+__author__ = "Bastian Kersting"
+__version__ = "1.2"
+
+"""
 
 start_time = time.time()
 overll_performance = []
+round = 1
 
-for _ in range(7):
+for _ in range(5):
 
     input_nodes = 784
     output_nodes = 10
     # 2/3 * input_nodes?
     hidden_nodes = 517
-    hidden_layers = 3
-    lr = 0.22
+    hidden_layers = 5
+    lr = 0.00125
     activation_function = "sigmoid"
 
     network = NeuronalesNetz.NeuronalesNetz(input_nodes, output_nodes, hidden_nodes, hidden_layers, lr, activation_function)
@@ -51,9 +58,12 @@ for _ in range(7):
 
     performance = float(np.asarray(scorecard).sum()) / float(len(scorecard))
     overll_performance.append(performance)
+    print(round, " round(s) finished")
+    print("This rounds performance= ", performance)
+    round += 1
 
 end_time = time.time()
 
 the_real_performance = np.asarray(overll_performance).sum() / float(len(overll_performance))
 print("%.10f minutes" % ((end_time - start_time) / 60))
-print("My network's performance: ", the_real_performance)
+print("My network's performance (%): ", the_real_performance * 100)

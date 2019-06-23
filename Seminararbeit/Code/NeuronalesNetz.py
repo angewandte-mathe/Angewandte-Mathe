@@ -1,6 +1,12 @@
 import numpy as np
 import scipy.special as scsp
 
+"""
+
+__author__ = "Bastian Kersting"
+__version__ = "1.2"
+
+"""
 
 class NeuronalesNetz:
 
@@ -25,6 +31,7 @@ class NeuronalesNetz:
 
         # And last but not least the weights between the last hidden layer and the output layer
         self.weight_hidden_output = np.random.normal(0.0, pow(self.out_nodes, -0.5), (self.out_nodes, self.hid_nodes))
+
 
         # Initialisation of the activation function and its derivative
         if activation_func == "sigmoid":
@@ -91,6 +98,6 @@ class NeuronalesNetz:
                 np.transpose(hidden_vals[reverse - index - 1]) if index < reverse else np.transpose(val_in))
 
         # And then for the first layer
-        self.weight_input_hidden += self.learn_rate * np.dot(errors[len(errors) - 1] * self.derivative_func(val_in),
+        self.weight_input_hidden += self.learn_rate * np.dot(errors[-1] * self.derivative_func(val_in),
                                                              np.transpose(x))
         pass
